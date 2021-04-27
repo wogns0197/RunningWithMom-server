@@ -1,5 +1,6 @@
+import {RecordData, UserData} from './models/RecordData.js';
+
 import { AuthURL } from './AUTH.js';
-import DataSchema from './models/postMessage.js';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post('/api/inputdata', (req, res) => {
-  const data = DataSchema(req.body);
+  const data = RecordData(req.body);
 
   data.save((err) => {
     if (err) return res.json({ message: err.message });
@@ -28,5 +29,25 @@ app.post('/api/inputdata', (req, res) => {
   return res.status(200).json({
     success: true,
   });
+});
+
+app.post('/api/login', (req, res) => {
+  const data = UserData(req.body);
+  
+  data.save((err) => {
+    if (err) return res.json({ message: err.message });
+  });
+  return res.status(200).json({
+    success: true,
+  });
+})
+
+app.get('/api/getdata', (req, res) => {
+  RecordData.find({})
+    .then(data => {
+      console.log("data moved from Mongo to React");
+      return res.json(data);
+    })
+  .catch(err => console.log(err))
 });
 
