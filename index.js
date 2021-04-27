@@ -31,17 +31,6 @@ app.post('/api/inputdata', (req, res) => {
   });
 });
 
-app.post('/api/login', (req, res) => {
-  const data = UserData(req.body);
-  
-  data.save((err) => {
-    if (err) return res.json({ message: err.message });
-  });
-  return res.status(200).json({
-    success: true,
-  });
-})
-
 app.get('/api/getdata', (req, res) => {
   RecordData.find({})
     .then(data => {
@@ -51,6 +40,7 @@ app.get('/api/getdata', (req, res) => {
   .catch(err => console.log(err))
 });
 
+//login
 app.post('/api/getLogin', (req, res) => {
   console.log(req.body);
   UserData.find({"id":req.body.id})
@@ -59,3 +49,15 @@ app.post('/api/getLogin', (req, res) => {
     })
     .catch(err => console.log(err))
 });
+
+//signin
+app.post('/api/signin', (req, res) => {
+  const data = UserData(req.body);
+  
+  data.save((err) => {
+    if (err) return res.json({ message: err.message });
+  });
+  return res.status(200).json({
+    success: true,
+  });
+})

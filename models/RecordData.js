@@ -14,9 +14,9 @@ const dataSchema = mongoose.Schema({
 
 const userSchema = mongoose.Schema({
   id: String,
-  name: String,
-  age: String,
   pw: String,
+  name: String,
+  age: Number,  
 });
 
 export const RecordData = mongoose.model('DBdata', dataSchema);
