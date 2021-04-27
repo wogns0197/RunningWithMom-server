@@ -51,3 +51,11 @@ app.get('/api/getdata', (req, res) => {
   .catch(err => console.log(err))
 });
 
+app.post('/api/getLogin', (req, res) => {
+  console.log(req.body);
+  UserData.find({"id":req.body.id})
+    .then(data => {
+      return res.json(data);      
+    })
+    .catch(err => console.log(err))
+});
