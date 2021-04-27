@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-const postSchema = mongoose.Schema({
-  key: [String],
+const Schema = mongoose.Schema({
+  // key: [String],
   year: Number,
   month: Number,
   day: Number,
@@ -11,6 +11,6 @@ const postSchema = mongoose.Schema({
   memo: String,
 });
 
-const PostMessage = mongoose.model('PostMessage', postSchema);
+const DataSchema = mongoose.model('DBdata', Schema);
 
-export default PostMessage;
+export default DataSchema;
