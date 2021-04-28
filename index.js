@@ -20,9 +20,10 @@ app.use(express.json({ extended: true}))
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+//post Record data
 app.post('/api/inputdata', (req, res) => {
   const data = RecordData(req.body);
-
+  console.log(req.body);
   data.save((err) => {
     if (err) return res.json({ message: err.message });
   });
@@ -31,10 +32,13 @@ app.post('/api/inputdata', (req, res) => {
   });
 });
 
+
+//get Record data
 app.get('/api/getdata', (req, res) => {
   RecordData.find({})
     .then(data => {
-      console.log("data moved from Mongo to React");
+      // console.log("data moved from Mongo to React");
+      console.log(res.json(data));
       return res.json(data);
     })
   .catch(err => console.log(err))
@@ -42,7 +46,10 @@ app.get('/api/getdata', (req, res) => {
 
 //login
 app.post('/api/getLogin', (req, res) => {
+  
   console.log(req.body);
+  const header = req.header('Access-Control-Allow-Origin');
+  console.log(header);
   UserData.find({"id":req.body.id})
     .then(data => {
       return res.json(data);      
@@ -52,8 +59,7 @@ app.post('/api/getLogin', (req, res) => {
 
 //signin
 app.post('/api/signin', (req, res) => {
-  const data = UserData(req.body);
-  
+  const data = UserData(req.body);  
   data.save((err) => {
     if (err) return res.json({ message: err.message });
   });

@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 
 const dataSchema = mongoose.Schema({
   key: [String],
+  userid: String,
   year: Number,
   month: Number,
   day: Number,
   goal: Number,
-  record: Number,
+  records: Number,
   weather: String,
   strength: String,
   memo: String,
