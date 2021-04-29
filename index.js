@@ -32,24 +32,26 @@ app.post('/api/inputdata', (req, res) => {
   });
 });
 
-
 //get Record data
-app.get('/api/getdata', (req, res) => {
-  RecordData.find({})
-    .then(data => {
-      // console.log("data moved from Mongo to React");
+app.post('/api/getdata', (req, res) => {
+  RecordData.find({"userid":req.body.userid})
+    .then(data => {      
       console.log(res.json(data));
       return res.json(data);
     })
   .catch(err => console.log(err))
 });
 
+//remove Record data
+app.post('/api/removedata', (req, res) => {
+  RecordData.deleteOne({ "_id": req.body._id })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+});
+
+
 //login
-app.post('/api/getLogin', (req, res) => {
-  
-  console.log(req.body);
-  const header = req.header('Access-Control-Allow-Origin');
-  console.log(header);
+app.post('/api/getLogin', (req, res) => {    
   UserData.find({"id":req.body.id})
     .then(data => {
       return res.json(data);      
